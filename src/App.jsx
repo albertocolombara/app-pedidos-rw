@@ -1,3 +1,6 @@
+import ItemProduto from './components/ItemProduto';
+import { produtos } from './data/produtos';
+
 const App = () => {
   return (
     <>
@@ -14,8 +17,8 @@ const App = () => {
         </nav>
       </header>  
 
-      <div className="container mx-auto bg-red-1/40 backdrop-blur-sm p-5 px-9 rounded-xl shadow-[0_-15px_18px_3px_rgba(0,0,0,0.025)]">
-        <h1 className="text-6xl text-red-6 text-center font-semibold my-[80px]">Faça seus pedidos de forma fácil e rápida!</h1>
+      <div className="container mx-auto bg-red-1/50 backdrop-blur-sm p-5 px-9 rounded-xl shadow-[0_-15px_18px_3px_rgba(46,3,3,0.1)]">
+        <h1 className="text-6xl text-red-6 text-center font-semibold my-20">Faça seus pedidos de forma fácil e rápida!</h1>
         <div className="grid grid-cols-3 items-center gap-3 text-red-1 h-full">
           <div className="col-span-2 bg-gradient-to-r from-red-6 to-red-7 rounded p-8 py-[52px] h-full shadow-md shadow-red-5">
             <h2 className="text-3xl font-bold text-center flex justify-center">Olha só como é fácil fazer o pedido!</h2>
@@ -45,6 +48,37 @@ const App = () => {
             </p>
             <a className="bg-gradient-to-r text-sm from-red-1 to-red-3 text-red-6 py-3 px-5 rounded inline-block self-end mt-auto transition hover:shadow-lg hover:shadow-red-3/60 hover:to-red-1" href="https://www.cityvinhos.com.br">Ir para CityVinhos →</a>
           </div>
+        </div>
+      </div>
+
+      <div id="pedido" className="container mx-auto mt-20 grid grid-cols-3 w-full">
+        <div className="col-span-2">
+          <form>
+            <img></img>
+            <input type="text" placeholder="Busque seus vinhos por nome ou cantina" className="text-red-4 bg-red-2 border border-red-3 rounded placeholder:text-red-4 p-4 w-full bg-[url('../public/icon_search.svg')] bg-no-repeat bg-[20px_20px] pl-11" />
+          </form>
+          <div className="grid grid-cols-4 w-full mt-4 gap-3 p-5">
+            {produtos.map((produto, index) =>
+              <ItemProduto key={index} produto={produto}/>
+            )}
+          </div>
+        </div>
+
+        <div className="rounded p-6 h-[500px] flex flex-col relative">
+          <h2 className="text-3xl mb-5">Carrinho</h2>
+          <div className="overflow-y-auto flex-1 mb-5">
+            <ul>
+              <li className="flex justify-between items-center">
+                <span>Pinot Noir Kinisia</span>
+                <span>
+                  <span>+</span>
+                  <span>1</span>
+                  <span>-</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <button className="block mx-auto mt-auto py-5 w-full bg-red-700 text-white font-bold">Gerar pedido</button>
         </div>
       </div>
     </>
