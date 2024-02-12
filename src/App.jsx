@@ -2,6 +2,7 @@ import ItemProduto from './components/ItemProduto';
 import { produtos } from './data/produtos';
 
 const App = () => {
+
   return (
     <>
       <header className="py-10">
