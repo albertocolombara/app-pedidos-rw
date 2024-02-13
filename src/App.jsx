@@ -1,7 +1,33 @@
+import { MinusCircledIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 import ItemProduto from './components/ItemProduto';
 import { produtos } from './data/produtos';
+import { useState } from 'react'
 
 const App = () => {
+  const [carrinho, setCarrinho] = useState([])
+
+  const adicionarAoCarrinho = (produto) => {
+    if (carrinho.find(item => item.nome === produto.nome) ) {
+      return
+    } else {
+      produto.quantidade = 1 
+      setCarrinho([...carrinho, produto])
+    }
+  }
+
+  const aumentarQuantidadeCarrinho = (index) => {
+    const novoCarrinho = [...carrinho]
+    novoCarrinho[index].quantidade++
+    setCarrinho(novoCarrinho)
+  }
+
+  const diminuirQuantidadeCarrinho = (index) => {
+    const novoCarrinho = [...carrinho]
+    if (novoCarrinho[index].quantidade > 1) {
+      novoCarrinho[index].quantidade--
+      setCarrinho(novoCarrinho)
+    }
+  }
 
   return (
     <>
@@ -60,7 +86,7 @@ const App = () => {
           </form>
           <div className="grid grid-cols-4 w-full mt-4 gap-3 p-5">
             {produtos.map((produto, index) =>
-              <ItemProduto key={index} produto={produto}/>
+              <ItemProduto key={index} produto={produto} adicionarAoCarrinho={adicionarAoCarrinho}/>
             )}
           </div>
         </div>
@@ -69,14 +95,14 @@ const App = () => {
           <h2 className="text-3xl mb-5">Carrinho</h2>
           <div className="overflow-y-auto flex-1 mb-5">
             <ul>
-              <li className="flex justify-between items-center">
-                <span>Pinot Noir Kinisia</span>
-                <span>
-                  <span>+</span>
-                  <span>1</span>
-                  <span>-</span>
-                </span>
-              </li>
+              {carrinho.map((item, index) => (
+                <li className="flex justify-between items-center text-red-7 rounded border p-4 select-none border-red-7" key={index}>
+                  {item.nome}
+                  <PlusCircledIcon onClick={() => aumentarQuantidadeCarrinho(index)} className='cursor-pointer' />
+                  {item.quantidade}
+                  <MinusCircledIcon onClick={() => diminuirQuantidadeCarrinho(index)} className='cursor-pointer' />
+                  </li>
+              ))}
             </ul>
           </div>
           <button className="block mx-auto mt-auto py-5 w-full bg-red-700 text-white font-bold">Gerar pedido</button>
