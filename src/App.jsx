@@ -5,7 +5,12 @@ import { useState } from 'react'
 
 const App = () => {
   const [carrinho, setCarrinho] = useState([])
-  const [termoBusca, setTermoBusca] = useState(' ')
+  const [termoBusca, setTermoBusca] = useState('')
+  const [nomeIdentificacao, setNomeIdentificacao] = useState('')
+
+  const handleIdentificacao = (e) => {
+    setNomeIdentificacao(e.target.value);
+  }
 
   const handleBusca = (e) => {
     setTermoBusca(e.target.value)
@@ -44,15 +49,21 @@ const App = () => {
 
   const handlePedido = () => {
     const quantidadeTotal = carrinho.map(item => item.quantidade).reduce((total, i) => total + i, 0)
-    if (quantidadeTotal > 7) {
-      const textoCarrinho = carrinho.map(item => `${item.quantidade}x ${item.nome} `).join('\n')
-      navigator.clipboard.writeText(textoCarrinho)
+    if (quantidadeTotal > 7 && nomeIdentificacao.length > 2) {
+      const textoIdentificacao = `Nome do cliente: ${nomeIdentificacao}\n`
+      const textoPedido = carrinho.map(item => `${item.quantidade}x ${item.nome} `).join('\n')
+      const textoNota = textoIdentificacao + textoPedido
+      navigator.clipboard.writeText(textoNota)
         .then(
-        alert(`Seu pedido foi copiado para sua area de transferência, envie para nosso WhatsApp para completar o pedido. \n \nResumo do pedido: \n${textoCarrinho}
+        alert(`Seu pedido foi copiado para sua area de transferência, envie para nosso WhatsApp para completar o pedido. \n \nResumo do pedido: \nNome do cliente: ${nomeIdentificacao} \n${textoPedido}
         `))
         .catch(error => console.error("Houve um erro", error)) 
-    } else {
+    } else if (quantidadeTotal < 7){
       alert("Aceitamos pedidos com o mínimo de 8 garrafas. Caso queria comprar em menor quantidade, visite a loja parceira CityVinhos (www.cityvinhos.com.br)")
+    } else if (nomeIdentificacao.length < 2) {
+      alert("Por favor, se identifique com pelo menos 3 letras.")
+    } else {
+      alert("Houve um erro.")
     }
   }
 
@@ -61,7 +72,7 @@ const App = () => {
       <header className="py-10">
         <nav className="container mx-auto flex justify-between items-center">
           <a href="https://www.realwines.com.br">
-            <img src="../public/logo.png" alt="Logo Realwines" width={220} height={70}></img>
+            <img src="/logo.png" alt="Logo Realwines" width={220} height={70}></img>
           </a>  
           <ul className="flex gap-4 text-red-7 font-semibold">
             <li><a href="https://www.realwines.com.br">Página Inicial</a></li>
@@ -105,10 +116,10 @@ const App = () => {
         </div>
       </div>
 
-      <div id="pedido" className="container mx-auto mt-20 grid grid-cols-3 w-full gap-4">
+      <div id="pedido" className="container mx-auto my-20 grid grid-cols-3 w-full gap-4">
         <div className="col-span-2">
           <form>
-            <input type="text" placeholder="Busque seus vinhos por nome ou cantina" onChange={handleBusca} value={termoBusca} className="text-red-4 bg-red-2 border border-red-3 rounded placeholder:text-red-4 p-4 w-full bg-[url('../public/icon_search.svg')] bg-no-repeat bg-[20px_20px] pl-11" />
+            <input type="text" placeholder="Busque seus vinhos por nome ou cantina" onChange={handleBusca} value={termoBusca} className="text-red-4 bg-red-2 border border-red-3 rounded placeholder:text-red-4 p-4 w-full bg-[url('/icon_search.svg')] bg-no-repeat bg-[20px_20px] pl-11" />
           </form>
           <div className="grid grid-cols-4 w-full mt-4 gap-3 rounded">
             {produtosFiltrados.map((produto, index) =>
@@ -117,7 +128,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className="rounded p-6 h-[500px] flex flex-col bg-red-2 sticky top-10">
+        <div className="rounded p-6 h-[600px] flex flex-col bg-red-2 sticky top-10">
           <div className="flex text-red-7 items-center justify-center border-b-2 border-dashed border-red-4 mb-5 pb-5 gap-3">
             <BackpackIcon width={24} height={24} />
             <h2 className="text-3xl">Resumo do pedido</h2>
@@ -139,7 +150,10 @@ const App = () => {
               ))}
             </ul>
           </div>
-          <button onClick={handlePedido} className="block mx-auto mt-auto py-5 w-full bg-gradient-to-r from-red-6 to-red-7 rounded-b text-red-1 font-bold">Gerar pedido</button>
+          <form>
+            <input type="text" onChange={handleIdentificacao} value={nomeIdentificacao} placeholder="Nome p/ identificação" className="text-red-4 bg-red-2 border border-red-3 rounded placeholder:text-red-4 p-4 w-full mb-4" />
+          </form>
+          <button onClick={handlePedido} className="block mx-auto mt-auto py-5 w-full bg-gradient-to-r from-red-6 to-red-7 rounded-b text-red-1 font-bold hover:to-red-6">Pedir cotação</button>
         </div>
       </div>
     </>
