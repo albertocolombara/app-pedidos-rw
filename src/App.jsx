@@ -5,6 +5,13 @@ import { useState } from 'react'
 
 const App = () => {
   const [carrinho, setCarrinho] = useState([])
+  const [termoBusca, setTermoBusca] = useState(' ')
+
+  const handleBusca = (e) => {
+    setTermoBusca(e.target.value)
+  }
+
+  const produtosFiltrados = produtos.filter(produto => produto.nome.toLowerCase().includes(termoBusca.toLowerCase()) || produto.marca.toLowerCase().includes(termoBusca.toLowerCase()))
 
   const adicionarAoCarrinho = (produto) => {
     if (carrinho.find(item => item.nome === produto.nome) ) {
@@ -47,8 +54,6 @@ const App = () => {
     } else {
       alert("Aceitamos pedidos com o mínimo de 8 garrafas. Caso queria comprar em menor quantidade, visite a loja parceira CityVinhos (www.cityvinhos.com.br)")
     }
-     
-    
   }
 
   return (
@@ -103,10 +108,10 @@ const App = () => {
       <div id="pedido" className="container mx-auto mt-20 grid grid-cols-3 w-full gap-4">
         <div className="col-span-2">
           <form>
-            <input type="text" placeholder="Busque seus vinhos por nome ou cantina" className="text-red-4 bg-red-2 border border-red-3 rounded placeholder:text-red-4 p-4 w-full bg-[url('../public/icon_search.svg')] bg-no-repeat bg-[20px_20px] pl-11" />
+            <input type="text" placeholder="Busque seus vinhos por nome ou cantina" onChange={handleBusca} value={termoBusca} className="text-red-4 bg-red-2 border border-red-3 rounded placeholder:text-red-4 p-4 w-full bg-[url('../public/icon_search.svg')] bg-no-repeat bg-[20px_20px] pl-11" />
           </form>
           <div className="grid grid-cols-4 w-full mt-4 gap-3 rounded">
-            {produtos.map((produto, index) =>
+            {produtosFiltrados.map((produto, index) =>
               <ItemProduto key={index} produto={produto} adicionarAoCarrinho={adicionarAoCarrinho}/>
             )}
           </div>
