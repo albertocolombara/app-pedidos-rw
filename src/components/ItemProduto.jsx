@@ -1,4 +1,4 @@
-const ItemProduto = ({ produto, adicionarAoCarrinho }) => {
+export const ItemProduto = ({ produto, adicionarAoCarrinho }) => {
     const handleClick = () => {
         adicionarAoCarrinho(produto)
     }
@@ -25,5 +25,3 @@ const ItemProduto = ({ produto, adicionarAoCarrinho }) => {
         </div>
     )
 }
-
-export default ItemProduto;

@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     colors: {
+      'no-color': 'transparent',
       'red-1': '#F3E6E6',
       'red-2': '#ECDADA',
       'red-3': '#D9B3B3',
