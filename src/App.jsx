@@ -106,12 +106,12 @@ const App = () => {
         </div>
       </div>
 
-      <div id="pedido" className="container mx-auto my-20 grid grid-cols-3 w-full gap-4">
-        <div className="col-span-2">
+      <div id="pedido" className="container mx-auto my-20 px-3 lg:px-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-4">
+        <div className="lg:col-span-2">
           <form>
             <input type="text" placeholder="Busque seus vinhos por nome ou cantina" onChange={handleBusca} value={termoBusca} className="text-red-4 bg-red-2 border border-red-3 rounded placeholder:text-red-4 p-4 w-full bg-[url('/icon_search.svg')] bg-no-repeat bg-[20px_20px] pl-11" />
           </form>
-          <div className="grid grid-cols-4 w-full mt-4 gap-3 rounded">
+          <div className="grid lg:grid-cols-4 grid-cols-2 w-full mt-4 gap-3 rounded">
             {produtosFiltrados.map((produto, index) =>
               <ItemProduto key={index} produto={produto} adicionarAoCarrinho={adicionarAoCarrinho}/>
             )}
@@ -121,7 +121,7 @@ const App = () => {
         <div className="rounded p-6 h-[600px] flex flex-col bg-red-2 sticky top-10">
           <div className="flex text-red-7 items-center justify-center border-b-2 border-dashed border-red-4 mb-5 pb-5 gap-3">
             <BackpackIcon width={24} height={24} />
-            <h2 className="text-3xl">Resumo do pedido</h2>
+            <h2 className="text-[20px] font-bold lg:text-3xl">Resumo do pedido</h2>
           </div>
           <div className="overflow-y-auto flex-1 mb-5">
             <ul>
