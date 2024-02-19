@@ -8,6 +8,11 @@ const App = () => {
   const [carrinho, setCarrinho] = useState([])
   const [termoBusca, setTermoBusca] = useState('')
   const [nomeIdentificacao, setNomeIdentificacao] = useState('')
+  const [openCarrinho, setOpenCarrinho] = useState(false)
+
+  const handleOpenCarrinho = () => {
+    setOpenCarrinho(!openCarrinho)
+  }
 
   const handleIdentificacao = (e) => {
     setNomeIdentificacao(e.target.value);
@@ -118,7 +123,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className="rounded p-6 h-[600px] flex flex-col bg-red-2 sticky top-10">
+        <div className={`rounded p-6 sm:w-auto sm:h-[600px] ${openCarrinho ? "fixed sm:sticky" : "hidden"} flex flex-col bg-red-2  sm:top-10  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:left-0 sm:-translate-x-0 sm:-translate-y-0 w-[90%] h-[70%] shadow-2xl shadow"`}>
           <div className="flex text-red-7 items-center justify-center border-b-2 border-dashed border-red-4 mb-5 pb-5 gap-3">
             <BackpackIcon width={24} height={24} />
             <h2 className="text-[20px] font-bold lg:text-3xl">Resumo do pedido</h2>
@@ -145,6 +150,10 @@ const App = () => {
           </form>
           <button onClick={handlePedido} className="block mx-auto mt-auto py-5 w-full bg-gradient-to-r from-red-6 to-red-7 rounded-b text-red-1 font-bold hover:to-red-6">Pedir cotação</button>
         </div>
+      </div>
+
+      <div className='sm:hidden rounded-full bg-red-4 w-[80px] h-[80px] flex justify-center items-center fixed bottom-6 right-6 shadow-lg' onClick={handleOpenCarrinho}>
+        <BackpackIcon width={36} height={36} />
       </div>
     </>
   )
