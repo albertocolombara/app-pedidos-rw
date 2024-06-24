@@ -8,7 +8,7 @@ const App = () => {
   const [carrinho, setCarrinho] = useState([])
   const [termoBusca, setTermoBusca] = useState('')
   const [nomeIdentificacao, setNomeIdentificacao] = useState('')
-  const [openCarrinho, setOpenCarrinho] = useState(true)
+  const [openCarrinho, setOpenCarrinho] = useState(false)
 
   const handleOpenCarrinho = () => {
     setOpenCarrinho(!openCarrinho)
@@ -78,7 +78,7 @@ const App = () => {
       <Header /> 
 
       <div className="container mx-auto bg-red-1/50 backdrop-blur-sm p-5 lg:px-9 px-3 rounded-xl shadow-[0_-15px_18px_3px_rgba(46,3,3,0.1)]">
-        <h1 className="text-4xl sm:text-6xl text-red-6 text-center font-semibold my-20">Faça seus pedidos de forma fácil e rápida!</h1>
+        <h1 className="text-6xl text-red-6 text-center font-semibold my-20">Faça seus pedidos de forma fácil e rápida!</h1>
         <div className="grid md:grid-cols-3 grid-cols-1 items-center gap-3 text-red-1 h-full">
           <div className="md:col-span-2 col-span-1 bg-gradient-to-r from-red-6 to-red-7 rounded p-8 py-[52px] h-full shadow-md shadow-red-5">
             <h2 className="text-3xl font-bold text-center flex justify-center">Olha só como é fácil fazer o pedido!</h2>
@@ -123,7 +123,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className={`rounded p-6 sm:w-auto sm:h-[600px] ${openCarrinho ? "fixed sm:sticky" : "hidden"} sm:flex flex-col bg-red-2  sm:top-10  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:left-0 sm:-translate-x-0 sm:-translate-y-0 w-[90%] h-[70%] shadow-2xl shadow"`}>
+        <div className={`rounded p-6 sm:w-auto sm:h-[600px] ${openCarrinho ? "fixed sm:sticky" : "hidden"} flex flex-col bg-red-2  sm:top-10  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:left-0 sm:-translate-x-0 sm:-translate-y-0 w-[90%] h-[70%] shadow-2xl shadow"`}>
           <div className="flex text-red-7 items-center justify-center border-b-2 border-dashed border-red-4 mb-5 pb-5 gap-3">
             <BackpackIcon width={24} height={24} />
             <h2 className="text-[20px] font-bold lg:text-3xl">Resumo do pedido</h2>
@@ -155,7 +155,6 @@ const App = () => {
       <div className='sm:hidden rounded-full bg-red-4 w-[80px] h-[80px] flex justify-center items-center fixed bottom-6 right-6 shadow-lg' onClick={handleOpenCarrinho}>
         <BackpackIcon width={36} height={36} />
       </div>
-
     </>
   )
 }
